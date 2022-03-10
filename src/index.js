@@ -38,8 +38,12 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    let res =[];
-    
+   let res =[];
+    for (let i=0;i<expr.length;i+=10){
+        if(expr[i] === "*"){
+            res +=' ';
+            continue;
+        }
         let letters ="";
         for (j=i; j < i + 10; j+=2){
             let char = expr.slice(j,j+2);
@@ -50,13 +54,9 @@ function decode(expr) {
             } else if (char ==="11"){
                 letters+="-";
             }
-            for (let i=0;i<expr.length;i+=10){
-        if(expr[i] === "*"){
-            res + =' ';
-            continue;
         }
-        }
-        res +=MORSE_TABLE[letters];
+        res += MORSE_TABLE[letters];
+        
     }
     return res;
 }
