@@ -38,30 +38,27 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    function decodeSymbol(arr){
-        let temp = '';
-        let i = 0;
-        if (arr[0] === '*') {
-            return ' ';
+    let res =[];
+    
+        let letters ="";
+        for (j=i; j < i + 10; j+=2){
+            let char = expr.slice(j,j+2);
+            if(char === "00"){
+                letters +='';
+            } else if (char ==="10"){
+                letters +=".";
+            } else if (char ==="11"){
+                letters+="-";
+            }
+            for (let i=0;i<expr.length;i+=10){
+        if(expr[i] === "*"){
+            res + =' ';
+            continue;
         }
-        do {
-            if( arr[i] + arr[i+1] === '10')
-           {
-            temp = temp + '.';
-           } else if ( arr[i] + arr[i+1] === '11' ) {
-            temp = temp + '-';
-           }
-           i = i + 2;
-        } while ( i < arr.length )
-       return MORSE_TABLE[temp];
+        }
+        res +=MORSE_TABLE[letters];
     }
-    let array = expr.split('');
-    let result = '';
-    while ( array.length ) 
-    {
-       result = result + decodeSymbol( array.splice(0,10) ); 
-    }
- return result;
+    return res;
 }
 
 module.exports = {
